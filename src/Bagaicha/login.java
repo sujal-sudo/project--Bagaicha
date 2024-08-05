@@ -1,14 +1,15 @@
 package Bagaicha;
 
-
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ASUS
@@ -212,8 +213,6 @@ public class login extends javax.swing.JFrame {
                     .addContainerGap(257, Short.MAX_VALUE)))
         );
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Untitled design (17).png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -263,46 +262,102 @@ public class login extends javax.swing.JFrame {
 
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
         // TODO add your handling code here:
-            try{
-            String rol= (String)role.getSelectedItem();
-            
-            
-        String name=nameField.getText();
-        String pass =new String (passwordField.getPassword());
-       
-        
-        if (name.isEmpty()||pass.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Invalid Credentials");
-            
-        }
-        else if (pass.length()<8){
-            JOptionPane.showMessageDialog(this,"Password length must be 8 characters");
-            
-        }
-        
-        else{
-            connectorBagaicha connect=new connectorBagaicha();
-        connect.openConnection();
-            JOptionPane.showMessageDialog(this,"Login Successful");
-           
-             
-        
-            if (rol.equals("EMPLOYEE")){
-            PRODUCTS dashboardView = new PRODUCTS();
-            this.dispose();
-            dashboardView.setVisible(true);
-            }
-            if (rol.equals("ADMIN")){
-             Seller dashboardseller= new Seller();
-            this.dispose();
-            dashboardseller.setVisible(true);
-             }
+        try {
+            String rol = (String) role.getSelectedItem();
 
+            String name = nameField.getText();
+            String pass = new String(passwordField.getPassword());
+
+            if (name.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Invalid Credentials");
+
+            } else if (pass.length() < 8) {
+                JOptionPane.showMessageDialog(this, "Password length must be 8 characters");
+
+            } else {
+                connectorBagaicha connect = new connectorBagaicha();
+                connect.openConnection();
+                
+
+                if (rol.equals("EMPLOYEE")) {
+                    PRODUCTS dashboardView = new PRODUCTS();
+                    
+                 
+            String esql = "SELECT * FROM employe WHERE username=?";
+            String eusername = null;
+            String epassword = null;   
+                    
+            try (Connection connection = new connectorBagaicha().openConnection(); 
+             PreparedStatement preparedStatement = connection.prepareStatement(esql)){
+                
+                preparedStatement.setString(1, name);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                eusername = rs.getString("username");
+                epassword = rs.getString("passsword");
+            
+            }
+            if (name.equals(eusername) && pass.equals(epassword)) {
+            // No need for executeUpdate here
+            JOptionPane.showMessageDialog(this, "Login Successful");
+            
+              this.dispose();
+                    dashboardView.setVisible(true);
+            }
+            else{
+            JOptionPane.showMessageDialog(this, "Login Unsuccessful");
         }
-        
-        
-        }catch(Exception ex){
-            System.out.println("Error adding user: "+ ex.getMessage());
+            }
+            catch (Exception ex){
+                System.out.println(ex.getMessage());
+                }
+                
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+                    
+                    
+                  
+                }
+                   if (rol.equals("ADMIN")) {
+    Seller dashboardseller = new Seller();
+
+    String sql = "SELECT * FROM admin WHERE username=?";
+    String username = null;
+    String password = null;
+
+    try (Connection connection = new connectorBagaicha().openConnection(); 
+         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        preparedStatement.setString(1, name);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                username = rs.getString("username");
+                password = rs.getString("password");
+            
+        }
+
+        if (name.equals(username) && pass.equals(password)) {
+            // No need for executeUpdate here
+            JOptionPane.showMessageDialog(this, "Login Successful");
+            this.dispose();
+    dashboardseller.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Login Successful");
+        }
+            }
+
+    } catch (SQLException ex) {
+        System.out.println("Error: " + ex.getMessage());
+    }
+
+    
+}
+            }
+        } catch (Exception ex) {
+            System.out.println("Error adding user: " + ex.getMessage());
         }
     }//GEN-LAST:event_loginbtnActionPerformed
 
@@ -316,11 +371,10 @@ public class login extends javax.swing.JFrame {
 //        String name=nameField.getText();
 //        String pass =new String (passwordField.getPassword());
 //        if (name.getText()||pass.getPass)
-            nameField.setText("");
-            passwordField.setText("");
-            
-             
-            
+        nameField.setText("");
+        passwordField.setText("");
+
+
     }//GEN-LAST:event_clearbtnActionPerformed
 
     private void roleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roleMouseClicked
