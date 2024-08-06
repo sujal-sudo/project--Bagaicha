@@ -283,7 +283,7 @@ public class login extends javax.swing.JFrame {
                     PRODUCTS dashboardView = new PRODUCTS();
                     
                  
-            String esql = "SELECT * FROM employe WHERE username=?";
+            String esql = "SELECT * FROM employee WHERE Employee_name=?";
             String eusername = null;
             String epassword = null;   
                     
@@ -294,8 +294,8 @@ public class login extends javax.swing.JFrame {
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
             if (rs.next()) {
-                eusername = rs.getString("username");
-                epassword = rs.getString("passsword");
+                eusername = rs.getString("Employee_name");
+                epassword = rs.getString("password");
             
             }
             if (name.equals(eusername) && pass.equals(epassword)) {
@@ -322,7 +322,7 @@ public class login extends javax.swing.JFrame {
                     
                   
                 }
-                   if (rol.equals("ADMIN")) {
+       if (rol.equals("ADMIN")) {
     Seller dashboardseller = new Seller();
 
     String sql = "SELECT * FROM admin WHERE username=?";
@@ -341,12 +341,12 @@ public class login extends javax.swing.JFrame {
             
         }
 
-        if (name.equals(username) && pass.equals(password)) {
+        if (name.equals(username) && password.equals(password)) {
             // No need for executeUpdate here
             JOptionPane.showMessageDialog(this, "Login Successful");
-            
+            this.dispose();
     dashboardseller.setVisible(true);
-    this.dispose();
+    
         }else{
             JOptionPane.showMessageDialog(this, "Login Unsuccessful");
         }
@@ -359,8 +359,8 @@ public class login extends javax.swing.JFrame {
     
 }
             }
-        } catch (Exception ex) {
-            System.out.println("Error adding user: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error adding user: " + e.getMessage());
         }
     }//GEN-LAST:event_loginbtnActionPerformed
 

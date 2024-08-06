@@ -17,6 +17,9 @@ import javax.swing.JOptionPane;
 
 public class Seller extends javax.swing.JFrame {
 
+    
+    
+    
     /**
      * Creates new form Seller
      */
@@ -176,6 +179,11 @@ public class Seller extends javax.swing.JFrame {
         employeetable.setGridColor(new java.awt.Color(0, 0, 0));
         employeetable.setSelectionBackground(new java.awt.Color(255, 153, 0));
         employeetable.setShowGrid(true);
+        employeetable.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                employeetableComponentAdded(evt);
+            }
+        });
         jScrollPane1.setViewportView(employeetable);
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -323,18 +331,20 @@ public class Seller extends javax.swing.JFrame {
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         // TODO add your handling code here:
         String empid = employeeidField.getText();
-        int id = Integer.parseInt(empid);
         String name = nameField.getText();
         String pass = new String(passwordField.getText());
         String gend = (String) gender.getSelectedItem();
 
-        if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
+        if (empid.isEmpty() || name.isEmpty() || pass.isEmpty() || empid.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Invalid credentials");
         } else {
-
+            
+            int id = Integer.parseInt(empid);
             String sql = "INSERT INTO Employee (Id, Employee_name, Password, Gender) VALUES (?, ?, ?, ?);";
+           
 
-            try (Connection connection = new connectorBagaicha().openConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                 preparedStatement.setInt(1, id);
                 preparedStatement.setString(2, name);
@@ -360,13 +370,39 @@ public class Seller extends javax.swing.JFrame {
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
         String empid = employeeidField.getText();
+        int id= Integer.parseInt(empid);
+        
         String name = nameField.getText();
         String pass = new String(passwordField.getText());
 
         if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Invalid credentials");
         } else {
-            JOptionPane.showMessageDialog(this, "Employee edited");
+            
+             String sql2="update Employee set Employee_name=?,Password=? where Id=?";
+             
+             try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql2)) {
+
+                
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, pass);
+                preparedStatement.setInt(3, id);
+               
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Employee edited");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Employee edit failed");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+            
+            
+            
         }
     }//GEN-LAST:event_editbtnActionPerformed
 
@@ -390,16 +426,59 @@ public class Seller extends javax.swing.JFrame {
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
                     // TODO add your handling code here:
                     String empid = employeeidField.getText();
-                    String name = nameField.getText();
-                    String pass = new String(passwordField.getText());
+                    int employeeId=Integer.parseInt(empid);
+//                    String name = nameField.getText();
+//                    String pass = new String(passwordField.getText());
 
-                    if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "Invalid credentials");
+                    if (empid.isEmpty() ) {
+                        JOptionPane.showMessageDialog(this, "Please provide Employee Id");
                     } else {
-                        JOptionPane.showMessageDialog(this, "Employee deleted");
+                        
+                         String sql3="delete from Employee where Id=?";
+                         
+                         try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql3)) {
+
+                
+                preparedStatement.setInt(1, employeeId);
+      
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Employee deleted");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Employee deletion failed");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+                         
+      
                     }
                 
     }//GEN-LAST:event_deletebtnActionPerformed
+
+    private void employeetableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_employeetableComponentAdded
+        // TODO add your handling code here:
+        ////database display:::
+    
+     String sql3 = "select * from Employee";
+           
+
+            try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql3)) {
+
+               
+
+                int rowsAffected = preparedStatement.executeUpdate();
+              
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
+    }//GEN-LAST:event_employeetableComponentAdded
 
     /**
      * @param args the command line arguments

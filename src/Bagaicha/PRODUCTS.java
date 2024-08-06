@@ -364,14 +364,42 @@ public class PRODUCTS extends javax.swing.JFrame {
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
         String product = productidField.getText();
+        int productid= Integer.parseInt(product);
         
         String name = nameField.getText();
         String quantity = quantityField.getText();
+        int quant=Integer.parseInt(quantity);
         String price = priceField.getText();
+        Double Price=Double.parseDouble(price);
         if (product.isEmpty() || name.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Invalid credentials");
         } else {
-            JOptionPane.showMessageDialog(this, "Product edited");
+            
+            String sql2="update Product set Product_name=?,Quantity=?, Price=? where Product_id=?";
+             
+             try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql2)) {
+
+                
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, quantity);
+                preparedStatement.setDouble(3, Price);
+                preparedStatement.setInt(4,productid);
+               
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Product edited");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product edit failed");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+            
+            
+            
 //            
         }
 //            UPDATEADMIN updateDash= new UPDATEADMIN();
@@ -395,15 +423,38 @@ public class PRODUCTS extends javax.swing.JFrame {
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
         // TODO add your handling code here:
         String product = productidField.getText();
-        String name = nameField.getText();
-        String quantity = quantityField.getText();
-        String price = priceField.getText();
+        int productid=Integer.parseInt(product);
+//        String name = nameField.getText();
+//        String quantity = quantityField.getText();
+//        String price = priceField.getText();
 
         if (product.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please provide Product id");
         } else {
-            JOptionPane.showMessageDialog(this, "Product deleted");
+            
+           String sql3="delete from Product where product_id=?";
+           
+           try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql3)) {
 
+                
+                preparedStatement.setInt(1, productid);
+                
+               
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Product deleted");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product deletion failed");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+            
+            
+            
         }
     }//GEN-LAST:event_deletebtnActionPerformed
 
