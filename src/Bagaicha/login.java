@@ -302,11 +302,13 @@ public class login extends javax.swing.JFrame {
             // No need for executeUpdate here
             JOptionPane.showMessageDialog(this, "Login Successful");
             
-              this.dispose();
+             this.dispose();
+              
                     dashboardView.setVisible(true);
+                     
             }
             else{
-            JOptionPane.showMessageDialog(this, "Login Unsuccessful");
+            JOptionPane.showMessageDialog(this, "Login unsuccessful");
         }
             }
             catch (Exception ex){
@@ -342,10 +344,11 @@ public class login extends javax.swing.JFrame {
         if (name.equals(username) && pass.equals(password)) {
             // No need for executeUpdate here
             JOptionPane.showMessageDialog(this, "Login Successful");
-            this.dispose();
+            
     dashboardseller.setVisible(true);
+    this.dispose();
         }else{
-            JOptionPane.showMessageDialog(this, "Login Successful");
+            JOptionPane.showMessageDialog(this, "Login Unsuccessful");
         }
             }
 

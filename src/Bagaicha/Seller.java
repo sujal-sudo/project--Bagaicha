@@ -1,18 +1,20 @@
 package Bagaicha;
 
-
-
+import Bagaicha.connectorBagaicha;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ASUS
  */
+
 public class Seller extends javax.swing.JFrame {
 
     /**
@@ -320,27 +322,51 @@ public class Seller extends javax.swing.JFrame {
 
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         // TODO add your handling code here:
-        String empid=employeeidField.getText();
-        String name=nameField.getText();
-        String pass =new String (passwordField.getText());
-        
-        if (empid.isEmpty()||name.isEmpty()||pass.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Invalid credentials");
-        }else{
-            JOptionPane.showMessageDialog(this,"Employee added successfully");
+        String empid = employeeidField.getText();
+        int id = Integer.parseInt(empid);
+        String name = nameField.getText();
+        String pass = new String(passwordField.getText());
+        String gend = (String) gender.getSelectedItem();
+
+        if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Invalid credentials");
+        } else {
+
+            String sql = "INSERT INTO Employee (Id, Employee_name, Password, Gender) VALUES (?, ?, ?, ?);";
+
+            try (Connection connection = new connectorBagaicha().openConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                preparedStatement.setInt(1, id);
+                preparedStatement.setString(2, name);
+                preparedStatement.setString(3, pass);
+                preparedStatement.setString(4, gend);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Employee added successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Employee addition failed");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
         }
+
+
     }//GEN-LAST:event_addbtnActionPerformed
 
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
-        String empid=employeeidField.getText();
-        String name=nameField.getText();
-        String pass =new String (passwordField.getText());
-        
-        if (empid.isEmpty()||name.isEmpty()||pass.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Invalid credentials");
-        }else{
-            JOptionPane.showMessageDialog(this,"Employee edited");
+        String empid = employeeidField.getText();
+        String name = nameField.getText();
+        String pass = new String(passwordField.getText());
+
+        if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Invalid credentials");
+        } else {
+            JOptionPane.showMessageDialog(this, "Employee edited");
         }
     }//GEN-LAST:event_editbtnActionPerformed
 
@@ -353,7 +379,7 @@ public class Seller extends javax.swing.JFrame {
 
     private void addbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addbtnMouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_addbtnMouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -362,53 +388,54 @@ public class Seller extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
-        // TODO add your handling code here:
-        String empid=employeeidField.getText();
-        String name=nameField.getText();
-        String pass =new String (passwordField.getText());
-        
-        if (empid.isEmpty()||name.isEmpty()||pass.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Invalid credentials");
-        }else{
-            JOptionPane.showMessageDialog(this,"Employee deleted");
-        }
+                    // TODO add your handling code here:
+                    String empid = employeeidField.getText();
+                    String name = nameField.getText();
+                    String pass = new String(passwordField.getText());
+
+                    if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Invalid credentials");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Employee deleted");
+                    }
+                
     }//GEN-LAST:event_deletebtnActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+            public static void main(String args[]) {
+                /* Set the Nimbus look and feel */
+                //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+                /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+                 */
+                try {
+                    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                        if ("Nimbus".equals(info.getName())) {
+                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (ClassNotFoundException ex) {
+                    java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Seller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+                //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Seller().setVisible(true);
-            }
-        });
-    }
+                /* Create and display the form */
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new Seller().setVisible(true);
+                    }
+                });
 
+            }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbtn;
     private javax.swing.JButton clearbtn;

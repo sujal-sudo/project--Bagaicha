@@ -329,13 +329,15 @@ public class PRODUCTS extends javax.swing.JFrame {
 
         ProductDetails user = new ProductDetails(id, name, quant, pric);
 
-        if (product.isEmpty() || name.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
+        if (product==null || name==null || quantity==null || price==null) {
             JOptionPane.showMessageDialog(this, "Invalid Credentials");
         } else {
 
+            
             String sql = "INSERT INTO Product (Product_id, Product_name, Quantity, Price) VALUES (?, ?, ?, ?);";
 
-            try (Connection connection = new connectorBagaicha().openConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (Connection connection = new connectorBagaicha().openConnection(); 
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                 preparedStatement.setInt(1, id);
                 preparedStatement.setString(2, name);
@@ -346,7 +348,7 @@ public class PRODUCTS extends javax.swing.JFrame {
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "Product added successfully");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Product addition failed");
+//                    JOptionPane.showMessageDialog(null, "Product addition failed");
                 }
 
             } catch (SQLException ex) {
@@ -362,6 +364,7 @@ public class PRODUCTS extends javax.swing.JFrame {
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
         String product = productidField.getText();
+        
         String name = nameField.getText();
         String quantity = quantityField.getText();
         String price = priceField.getText();
