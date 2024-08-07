@@ -5,6 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
+import javax.swing.JTable;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,9 +19,11 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
+    
+
 
 public class Seller extends javax.swing.JFrame {
-
+        
     
     
     
@@ -25,7 +32,42 @@ public class Seller extends javax.swing.JFrame {
      */
     public Seller() {
         initComponents();
+//        SelectEmployee();
     }
+//    Connection con=null;
+//    Statement st=null;
+//    ResultSet rs= null;
+//    public void SelectEmployee(){
+//    try{
+////        con= DriverManager.getConnection( "jdbc:mysql://localhost:3306/Bagaicha", "root", "Bagaich@123");
+//         con = new connectorBagaicha().openConnection();
+//        st=con.createStatement();
+//        rs=st.executeQuery("select * from root.Employee");
+//        Employee.setMOdel(DbUtils.resultSetToTableModel(rs));
+//        
+//        
+//    }catch (Exception e){
+//    e.printStackTrace();
+//    }
+//    finally {
+//            // Close resources to avoid memory leaks
+//            try {
+//                if (rs != null) rs.close();
+//                if (st != null) st.close();
+//                if (con != null) con.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+    
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +96,7 @@ public class Seller extends javax.swing.JFrame {
         gender = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -207,6 +250,17 @@ public class Seller extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 153, 0));
+        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("View Records");
+        jButton1.setBorderPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -252,7 +306,9 @@ public class Seller extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(deletebtn)
                                                 .addGap(31, 31, 31)
-                                                .addComponent(clearbtn)))))))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(clearbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                         .addGap(130, 130, 130))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(226, 226, 226)
@@ -272,26 +328,31 @@ public class Seller extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(employeeidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addbtn)
-                    .addComponent(editbtn)
-                    .addComponent(deletebtn)
-                    .addComponent(clearbtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(employeeidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addbtn)
+                            .addComponent(editbtn)
+                            .addComponent(deletebtn)
+                            .addComponent(clearbtn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -370,14 +431,15 @@ public class Seller extends javax.swing.JFrame {
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
         String empid = employeeidField.getText();
-        int id= Integer.parseInt(empid);
+        
         
         String name = nameField.getText();
         String pass = new String(passwordField.getText());
 
-        if (empid.isEmpty() || name.isEmpty() || pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Invalid credentials");
+        if (empid.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please provide Employee Id");
         } else {
+            int id= Integer.parseInt(empid);
             
              String sql2="update Employee set Employee_name=?,Password=? where Id=?";
              
@@ -426,13 +488,14 @@ public class Seller extends javax.swing.JFrame {
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
                     // TODO add your handling code here:
                     String empid = employeeidField.getText();
-                    int employeeId=Integer.parseInt(empid);
+                    
 //                    String name = nameField.getText();
 //                    String pass = new String(passwordField.getText());
 
                     if (empid.isEmpty() ) {
                         JOptionPane.showMessageDialog(this, "Please provide Employee Id");
                     } else {
+                        int employeeId=Integer.parseInt(empid);
                         
                          String sql3="delete from Employee where Id=?";
                          
@@ -480,6 +543,35 @@ public class Seller extends javax.swing.JFrame {
 
     }//GEN-LAST:event_employeetableComponentAdded
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Bagaicha?useSSL=false","root","Bagaich@123");
+                Statement st=con.createStatement();
+                
+                String sql="select * from Employee";
+                ResultSet rs=st.executeQuery(sql);
+                
+                while (rs.next()){
+                    String id=String.valueOf(rs.getInt("Id"));
+                    String username=rs.getString("Employee_name");
+                    String password = rs.getString("Password");
+                    String gender=rs.getString("Gender");
+                    
+                    String tbData[]={id,username,password,gender};
+                    DefaultTableModel tblModel =(DefaultTableModel)employeetable.getModel();
+//                     tblModel.setRowCount(0);
+                    tblModel.addRow(tbData);
+                   
+                }
+                
+                con.close();
+            }catch (Exception e){
+                System.out.println("error: "+e.getMessage());
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -523,6 +615,7 @@ public class Seller extends javax.swing.JFrame {
     private javax.swing.JTextField employeeidField;
     private javax.swing.JTable employeetable;
     private javax.swing.JComboBox<String> gender;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

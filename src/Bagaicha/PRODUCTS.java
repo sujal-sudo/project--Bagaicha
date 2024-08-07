@@ -20,6 +20,12 @@ public class PRODUCTS extends javax.swing.JFrame {
     public PRODUCTS() {
         initComponents();
     }
+    Connection con=null;
+    Statement st=null;
+    ResultSet rs=null;
+    public void SelectProduct(){
+    
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -320,20 +326,23 @@ public class PRODUCTS extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String product = productidField.getText();
-        int id = Integer.parseInt(product);
+        
         String name = nameField.getText();
         String quantity = quantityField.getText();
-        int quant = Integer.parseInt(quantity);
+        
         String price = priceField.getText();
-        double pric = Double.parseDouble(price);
+        
 
-        ProductDetails user = new ProductDetails(id, name, quant, pric);
+//        ProductDetails user = new ProductDetails(id, name, quant, pric);
 
-        if (product==null || name==null || quantity==null || price==null) {
+        if (product.isEmpty() || name.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Invalid Credentials");
-        } else {
-
-            
+            }
+        else {
+            int id = Integer.parseInt(product);
+            int quant = Integer.parseInt(quantity);
+            double pric = Double.parseDouble(price);
+           
             String sql = "INSERT INTO Product (Product_id, Product_name, Quantity, Price) VALUES (?, ?, ?, ?);";
 
             try (Connection connection = new connectorBagaicha().openConnection(); 
@@ -348,14 +357,14 @@ public class PRODUCTS extends javax.swing.JFrame {
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "Product added successfully");
                 } else {
-//                    JOptionPane.showMessageDialog(null, "Product addition failed");
+                    JOptionPane.showMessageDialog(null, "Product addition failed");
                 }
 
             } catch (SQLException ex) {
-                System.out.println("Error: " + ex.getMessage());
+                System.out.println("error: " + ex.getMessage());
             }
 
-            JOptionPane.showMessageDialog(this, "Product added successfully");
+//            JOptionPane.showMessageDialog(this, "Product added Unsuccessful");
 
         }
 
@@ -364,16 +373,19 @@ public class PRODUCTS extends javax.swing.JFrame {
     private void editbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtnActionPerformed
         // TODO add your handling code here:
         String product = productidField.getText();
-        int productid= Integer.parseInt(product);
+        
         
         String name = nameField.getText();
         String quantity = quantityField.getText();
-        int quant=Integer.parseInt(quantity);
+        
         String price = priceField.getText();
-        Double Price=Double.parseDouble(price);
+        
         if (product.isEmpty() || name.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Invalid credentials");
         } else {
+            int productid= Integer.parseInt(product);
+            int quant=Integer.parseInt(quantity);
+            Double Price=Double.parseDouble(price);
             
             String sql2="update Product set Product_name=?,Quantity=?, Price=? where Product_id=?";
              
@@ -423,7 +435,7 @@ public class PRODUCTS extends javax.swing.JFrame {
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
         // TODO add your handling code here:
         String product = productidField.getText();
-        int productid=Integer.parseInt(product);
+        
 //        String name = nameField.getText();
 //        String quantity = quantityField.getText();
 //        String price = priceField.getText();
@@ -432,6 +444,7 @@ public class PRODUCTS extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please provide Product id");
         } else {
             
+            int productid=Integer.parseInt(product);
            String sql3="delete from Product where product_id=?";
            
            try (Connection connection = new connectorBagaicha().openConnection(); 
