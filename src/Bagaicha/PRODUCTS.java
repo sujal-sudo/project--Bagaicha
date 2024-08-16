@@ -1,8 +1,11 @@
 package Bagaicha;
 
+import Bagaicha.connectorBagaicha;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,13 +22,37 @@ public class PRODUCTS extends javax.swing.JFrame {
      */
     public PRODUCTS() {
         initComponents();
+        
+       String sql = "select * from Product";
+
+            try (Connection connection = new connectorBagaicha().openConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                ResultSet rs=preparedStatement.executeQuery();
+
+            while (rs.next()){
+                String id=String.valueOf(rs.getInt("Product_id"));
+                String pname=rs.getString("Product_name");
+                String quantity = rs.getString("Quantity");
+                String price=rs.getString("Price");
+
+                String tbData[]={id,pname,quantity,price};
+                DefaultTableModel tblModel =(DefaultTableModel)producttable.getModel();
+//                                     tblModel.setRowCount(0);
+                tblModel.addRow(tbData);
+
+            }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
+ 
+        
+        
+        
     }
-    Connection con=null;
-    Statement st=null;
-    ResultSet rs=null;
-    public void SelectProduct(){
     
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +78,7 @@ public class PRODUCTS extends javax.swing.JFrame {
         deletebtn = new javax.swing.JButton();
         clearbtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        producttable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
 
@@ -158,20 +185,10 @@ public class PRODUCTS extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        producttable.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        producttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "NAME", "QUANTITY", "PRICE"
@@ -185,10 +202,15 @@ public class PRODUCTS extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 153, 0));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        producttable.setGridColor(new java.awt.Color(0, 0, 0));
+        producttable.setSelectionBackground(new java.awt.Color(255, 153, 0));
+        producttable.setShowGrid(true);
+        producttable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                producttableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(producttable);
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
@@ -356,6 +378,15 @@ public class PRODUCTS extends javax.swing.JFrame {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "Product added successfully");
+                     dispose();
+                    
+                    SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new PRODUCTS().setVisible(true);
+                    }
+                });
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Product addition failed");
                 }
@@ -394,7 +425,7 @@ public class PRODUCTS extends javax.swing.JFrame {
 
                 
                 preparedStatement.setString(1, name);
-                preparedStatement.setString(2, quantity);
+                preparedStatement.setInt(2, quant);
                 preparedStatement.setDouble(3, Price);
                 preparedStatement.setInt(4,productid);
                
@@ -402,6 +433,15 @@ public class PRODUCTS extends javax.swing.JFrame {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "Product edited");
+                  
+                    dispose();
+                    
+                    SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new PRODUCTS().setVisible(true);
+                    }
+                });
                 } else {
                     JOptionPane.showMessageDialog(null, "Product edit failed");
                 }
@@ -458,6 +498,15 @@ public class PRODUCTS extends javax.swing.JFrame {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "Product deleted");
+                    
+                    
+                     dispose();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new PRODUCTS().setVisible(true);
+                    }
+                });
                 } else {
                     JOptionPane.showMessageDialog(null, "Product deletion failed");
                 }
@@ -470,6 +519,20 @@ public class PRODUCTS extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_deletebtnActionPerformed
+
+    private void producttableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_producttableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model=(DefaultTableModel)producttable.getModel();
+        int Myindex=producttable.getSelectedRow();
+       productidField.setText(model.getValueAt(Myindex,0).toString());
+
+        nameField.setText(model.getValueAt(Myindex,1).toString());
+        quantityField.setText(model.getValueAt(Myindex,2).toString());
+        priceField.setText(model.getValueAt(Myindex,3).toString());
+
+       
+        
+    }//GEN-LAST:event_producttableMouseClicked
 
         /**
          * @param args the command line arguments
@@ -520,10 +583,10 @@ public class PRODUCTS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField priceField;
     private javax.swing.JTextField productidField;
+    private javax.swing.JTable producttable;
     private javax.swing.JTextField quantityField;
     // End of variables declaration//GEN-END:variables
 }

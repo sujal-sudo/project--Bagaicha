@@ -4,7 +4,12 @@
  */
 package Bagaicha;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class AdminWork extends javax.swing.JFrame {
@@ -14,6 +19,31 @@ public class AdminWork extends javax.swing.JFrame {
      */
     public AdminWork() {
         initComponents();
+        
+       String sql = "select * from Product";
+
+            try (Connection connection = new connectorBagaicha().openConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                ResultSet rs=preparedStatement.executeQuery();
+
+            while (rs.next()){
+                String id=String.valueOf(rs.getInt("Product_id"));
+                String pname=rs.getString("Product_name");
+                String quantity = rs.getString("Quantity");
+                String price=rs.getString("Price");
+
+                String tbData[]={id,pname,quantity,price};
+                DefaultTableModel tblModel =(DefaultTableModel)billtable.getModel();
+//                                     tblModel.setRowCount(0);
+                tblModel.addRow(tbData);
+
+            }
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
     }
 
     /**
@@ -39,10 +69,12 @@ public class AdminWork extends javax.swing.JFrame {
         refreshbtn = new javax.swing.JButton();
         clearbtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        employeetable = new javax.swing.JTable();
+        billtable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         quantityField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        billtext = new javax.swing.JTextArea();
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
@@ -89,7 +121,7 @@ public class AdminWork extends javax.swing.JFrame {
         addbtn.setBackground(new java.awt.Color(255, 153, 0));
         addbtn.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         addbtn.setForeground(new java.awt.Color(255, 255, 255));
-        addbtn.setText("ADD");
+        addbtn.setText("ADD TO BILL");
         addbtn.setFocusable(false);
         addbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -135,8 +167,8 @@ public class AdminWork extends javax.swing.JFrame {
             }
         });
 
-        employeetable.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        employeetable.setModel(new javax.swing.table.DefaultTableModel(
+        billtable.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        billtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -152,10 +184,15 @@ public class AdminWork extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        employeetable.setGridColor(new java.awt.Color(0, 0, 0));
-        employeetable.setSelectionBackground(new java.awt.Color(255, 153, 0));
-        employeetable.setShowGrid(true);
-        jScrollPane1.setViewportView(employeetable);
+        billtable.setGridColor(new java.awt.Color(0, 0, 0));
+        billtable.setSelectionBackground(new java.awt.Color(255, 153, 0));
+        billtable.setShowGrid(true);
+        billtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                billtableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(billtable);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 153, 0));
@@ -178,49 +215,58 @@ public class AdminWork extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("PRODUCT LIST");
 
+        billtext.setColumns(20);
+        billtext.setRows(5);
+        jScrollPane2.setViewportView(billtext);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addbtn)
-                                    .addComponent(jLabel6))
-                                .addGap(15, 15, 15)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                .addComponent(quantityField))
-                            .addComponent(billidField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clearbtn)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(editbtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refreshbtn)))
-                .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(258, 258, 258)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2))
+                                        .addGap(33, 33, 33))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(addbtn)
+                                            .addComponent(jLabel6))
+                                        .addGap(15, 15, 15)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                        .addComponent(quantityField))
+                                    .addComponent(billidField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(clearbtn)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(editbtn)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refreshbtn)))))
+                .addGap(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,8 +309,10 @@ public class AdminWork extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel9)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(176, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -301,7 +349,7 @@ public class AdminWork extends javax.swing.JFrame {
     private void quantityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantityFieldActionPerformed
-
+ Double price,ProdTot;
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         dispose();
@@ -322,20 +370,35 @@ public class AdminWork extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Empty record");
         }
     }//GEN-LAST:event_editbtnActionPerformed
-
+        int i=0;
+       
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
-
-        String billid=billidField.getText();
+                String billid=billidField.getText();
         String name=nameField.getText();
         String quantity=quantityField.getText();
 
-        if (billid.isEmpty()|| name.isEmpty()|| quantity.isEmpty()){
+        if (name.isEmpty()){
             JOptionPane.showMessageDialog(this,"Empty record");
+        }else{
+            i++;
+            if(i==1)
+            {
+                billtext.setText(billtext.getText()+" \t==========BAGAICHA=========\n"+"S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+"       "+nameField.getText()+"            "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
+     
+            }else{
+                billtext.setText (billtext.getText()+i+"       "+nameField.getText()+"       "+price+"       "+quantityField.getText()+"       "+ ProdTot+"\n");
+            }
         }
     }//GEN-LAST:event_addbtnActionPerformed
-
+   
     private void addbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addbtnMouseClicked
-
+// String billid=billidField.getText();
+//        String name=nameField.getText();
+//        String quantity=quantityField.getText();
+//
+//        if ( name.isEmpty()|| quantity.isEmpty()){
+//            JOptionPane.showMessageDialog(this,"Empty record");
+//        }
     }//GEN-LAST:event_addbtnMouseClicked
 
     private void billidFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billidFieldActionPerformed
@@ -349,6 +412,21 @@ public class AdminWork extends javax.swing.JFrame {
     private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
 
     }//GEN-LAST:event_refreshbtnActionPerformed
+
+    private void billtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_billtableMouseClicked
+        // TODO add your handling code here:
+        
+          DefaultTableModel model=(DefaultTableModel)billtable.getModel();
+        int Myindex=billtable.getSelectedRow();
+            nameField.setText((model.getValueAt(Myindex, 1).toString()));
+            
+           price=Double.valueOf(model.getValueAt(Myindex,3).toString());
+        
+            ProdTot=price* Integer.valueOf(quantityField.getText());
+        
+        
+//       quantityField.setText(model.getValueAt(Myindex,3).toString());
+    }//GEN-LAST:event_billtableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -388,9 +466,10 @@ public class AdminWork extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbtn;
     private javax.swing.JTextField billidField;
+    private javax.swing.JTable billtable;
+    private javax.swing.JTextArea billtext;
     private javax.swing.JButton clearbtn;
     private javax.swing.JButton editbtn;
-    private javax.swing.JTable employeetable;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -401,6 +480,7 @@ public class AdminWork extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField quantityField;
     private javax.swing.JButton refreshbtn;
