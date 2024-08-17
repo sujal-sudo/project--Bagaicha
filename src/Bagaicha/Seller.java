@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 
