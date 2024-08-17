@@ -81,6 +81,8 @@ public class PRODUCTS extends javax.swing.JFrame {
         producttable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        billingbtn = new javax.swing.JButton();
+        billingbtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -225,6 +227,38 @@ public class PRODUCTS extends javax.swing.JFrame {
             }
         });
 
+        billingbtn.setBackground(new java.awt.Color(255, 153, 0));
+        billingbtn.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        billingbtn.setForeground(new java.awt.Color(255, 255, 255));
+        billingbtn.setText("BILLING");
+        billingbtn.setFocusable(false);
+        billingbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                billingbtnMouseClicked(evt);
+            }
+        });
+        billingbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billingbtnActionPerformed(evt);
+            }
+        });
+
+        billingbtn1.setBackground(new java.awt.Color(255, 153, 0));
+        billingbtn1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        billingbtn1.setForeground(new java.awt.Color(255, 255, 255));
+        billingbtn1.setText("GO BACK");
+        billingbtn1.setFocusable(false);
+        billingbtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                billingbtn1MouseClicked(evt);
+            }
+        });
+        billingbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billingbtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -243,7 +277,7 @@ public class PRODUCTS extends javax.swing.JFrame {
                         .addComponent(addbtn)
                         .addGap(33, 33, 33)
                         .addComponent(editbtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(deletebtn)
@@ -259,7 +293,9 @@ public class PRODUCTS extends javax.swing.JFrame {
                             .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(130, 130, 130))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(198, 198, 198)
+                .addContainerGap()
+                .addComponent(billingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,17 +308,22 @@ public class PRODUCTS extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(billingbtn)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(billingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(productidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,9 +342,14 @@ public class PRODUCTS extends javax.swing.JFrame {
                     .addComponent(editbtn)
                     .addComponent(addbtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(billingbtn)))
                 .addContainerGap())
         );
 
@@ -312,7 +358,7 @@ public class PRODUCTS extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -321,7 +367,7 @@ public class PRODUCTS extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -534,6 +580,27 @@ public class PRODUCTS extends javax.swing.JFrame {
         
     }//GEN-LAST:event_producttableMouseClicked
 
+    private void billingbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billingbtnActionPerformed
+
+    private void billingbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_billingbtnMouseClicked
+        // TODO add your handling code here:
+        AdminWork billing=new AdminWork();
+        
+        this.dispose();
+        billing.setVisible(true);
+        
+    }//GEN-LAST:event_billingbtnMouseClicked
+
+    private void billingbtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_billingbtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billingbtn1MouseClicked
+
+    private void billingbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingbtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billingbtn1ActionPerformed
+
         /**
          * @param args the command line arguments
          */
@@ -571,6 +638,8 @@ public class PRODUCTS extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbtn;
+    private javax.swing.JButton billingbtn;
+    private javax.swing.JButton billingbtn1;
     private javax.swing.JButton clearbtn;
     private javax.swing.JLabel close;
     private javax.swing.JButton deletebtn;
