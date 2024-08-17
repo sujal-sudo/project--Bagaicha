@@ -77,6 +77,7 @@ public class AdminWork extends javax.swing.JFrame {
         billtext = new javax.swing.JTextArea();
         billingbtn1 = new javax.swing.JButton();
         editbtn1 = new javax.swing.JButton();
+        grdtotal = new javax.swing.JLabel();
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
@@ -253,6 +254,10 @@ public class AdminWork extends javax.swing.JFrame {
             }
         });
 
+        grdtotal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        grdtotal.setForeground(new java.awt.Color(255, 153, 0));
+        grdtotal.setText("Rs");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -299,7 +304,10 @@ public class AdminWork extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(printbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(grdtotal)
+                                .addGap(170, 170, 170)
+                                .addComponent(printbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(43, 43, 43))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,8 +331,10 @@ public class AdminWork extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(printbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(printbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grdtotal))
+                .addGap(15, 15, 15))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -392,7 +402,7 @@ public class AdminWork extends javax.swing.JFrame {
     private void quantityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantityFieldActionPerformed
- Double price,ProdTot;
+ Double price,ProdTot=0.0, grdTotal=0.0;
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         dispose();
@@ -413,11 +423,16 @@ public class AdminWork extends javax.swing.JFrame {
                 String billid=billidField.getText();
         String name=nameField.getText();
         String quantity=quantityField.getText();
+        int quant= Integer.parseInt(quantity);
 
         if (name.isEmpty()){
             JOptionPane.showMessageDialog(this,"Empty record");
-        }else{
+            
+        }
+        else{
             i++;
+            ProdTot=price* Integer.valueOf(quantityField.getText());
+            grdTotal=grdTotal+ProdTot;
             if(i==1)
             {
                 billtext.setText(billtext.getText()+ "\t==========BAGAICHA========= \t \n"+ " Bill ID:" +"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+ "       "+nameField.getText()+"             "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
@@ -425,6 +440,7 @@ public class AdminWork extends javax.swing.JFrame {
             }else{
                 billtext.setText (billtext.getText()+i+"       "+nameField.getText()+"       "+price+"       "+quantityField.getText()+"       "+ ProdTot+"\n");
             }
+            grdtotal.setText("Rs "+ grdTotal);
         }
     }//GEN-LAST:event_addbtnActionPerformed
    
@@ -462,7 +478,6 @@ public class AdminWork extends javax.swing.JFrame {
             
            price=Double.valueOf(model.getValueAt(Myindex,3).toString());
         
-            ProdTot=price* Integer.valueOf(quantityField.getText());
         
         
 //       quantityField.setText(model.getValueAt(Myindex,3).toString());
@@ -480,10 +495,6 @@ public class AdminWork extends javax.swing.JFrame {
         
     }//GEN-LAST:event_billingbtn1ActionPerformed
 
-    private void editbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editbtn1ActionPerformed
-
     private void printbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printbtnMouseClicked
         // TODO add your handling code here:
         try{
@@ -493,6 +504,10 @@ public class AdminWork extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_printbtnMouseClicked
+
+    private void editbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editbtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,6 +552,7 @@ public class AdminWork extends javax.swing.JFrame {
     private javax.swing.JTextArea billtext;
     private javax.swing.JButton clearbtn;
     private javax.swing.JButton editbtn1;
+    private javax.swing.JLabel grdtotal;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
