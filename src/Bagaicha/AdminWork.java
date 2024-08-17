@@ -405,7 +405,7 @@ public class AdminWork extends javax.swing.JFrame {
             i++;
             if(i==1)
             {
-                billtext.setText(billtext.getText()+ " \t==========BAGAICHA=========\n"+"S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+"       "+nameField.getText()+"            "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
+                billtext.setText(billtext.getText()+ "\t==========BAGAICHA=========\n"+ " Bill ID:" +"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+ "       "+nameField.getText()+"            "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
      
             }else{
                 billtext.setText (billtext.getText()+i+"       "+nameField.getText()+"       "+price+"       "+quantityField.getText()+"       "+ ProdTot+"\n");

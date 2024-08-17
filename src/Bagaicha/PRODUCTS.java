@@ -82,7 +82,7 @@ public class PRODUCTS extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
         billingbtn = new javax.swing.JButton();
-        billingbtn1 = new javax.swing.JButton();
+        logoutbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -243,19 +243,19 @@ public class PRODUCTS extends javax.swing.JFrame {
             }
         });
 
-        billingbtn1.setBackground(new java.awt.Color(255, 153, 0));
-        billingbtn1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        billingbtn1.setForeground(new java.awt.Color(255, 255, 255));
-        billingbtn1.setText("GO BACK");
-        billingbtn1.setFocusable(false);
-        billingbtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        logoutbtn.setBackground(new java.awt.Color(255, 153, 0));
+        logoutbtn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        logoutbtn.setForeground(new java.awt.Color(255, 255, 255));
+        logoutbtn.setText("Log Out");
+        logoutbtn.setFocusable(false);
+        logoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                billingbtn1MouseClicked(evt);
+                logoutbtnMouseClicked(evt);
             }
         });
-        billingbtn1.addActionListener(new java.awt.event.ActionListener() {
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billingbtn1ActionPerformed(evt);
+                logoutbtnActionPerformed(evt);
             }
         });
 
@@ -294,7 +294,7 @@ public class PRODUCTS extends javax.swing.JFrame {
                 .addGap(130, 130, 130))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(billingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -322,7 +322,7 @@ public class PRODUCTS extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(billingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(logoutbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -593,13 +593,16 @@ public class PRODUCTS extends javax.swing.JFrame {
         
     }//GEN-LAST:event_billingbtnMouseClicked
 
-    private void billingbtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_billingbtn1MouseClicked
+    private void logoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutbtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_billingbtn1MouseClicked
+    }//GEN-LAST:event_logoutbtnMouseClicked
 
-    private void billingbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billingbtn1ActionPerformed
+    private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_billingbtn1ActionPerformed
+        login logout=new login();
+        this.dispose();
+        logout.setVisible(true);
+    }//GEN-LAST:event_logoutbtnActionPerformed
 
         /**
          * @param args the command line arguments
@@ -639,7 +642,6 @@ public class PRODUCTS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbtn;
     private javax.swing.JButton billingbtn;
-    private javax.swing.JButton billingbtn1;
     private javax.swing.JButton clearbtn;
     private javax.swing.JLabel close;
     private javax.swing.JButton deletebtn;
@@ -652,6 +654,7 @@ public class PRODUCTS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logoutbtn;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField priceField;
     private javax.swing.JTextField productidField;
