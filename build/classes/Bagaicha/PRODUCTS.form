@@ -265,7 +265,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value=" PRICE PR 1"/>
+            <Property name="text" type="java.lang.String" value=" PRICE PER 1"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>

@@ -133,7 +133,7 @@ public class PRODUCTS extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel7.setText(" PRICE PR 1");
+        jLabel7.setText(" PRICE PER 1");
         jLabel7.setToolTipText("");
 
         priceField.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
