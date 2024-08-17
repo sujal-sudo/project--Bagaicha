@@ -76,7 +76,6 @@ public class AdminWork extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         billtext = new javax.swing.JTextArea();
         billingbtn1 = new javax.swing.JButton();
-        editbtn1 = new javax.swing.JButton();
         grdtotal = new javax.swing.JLabel();
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -243,17 +242,6 @@ public class AdminWork extends javax.swing.JFrame {
             }
         });
 
-        editbtn1.setBackground(new java.awt.Color(255, 153, 0));
-        editbtn1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        editbtn1.setForeground(new java.awt.Color(255, 255, 255));
-        editbtn1.setText("EDIT");
-        editbtn1.setFocusable(false);
-        editbtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editbtn1ActionPerformed(evt);
-            }
-        });
-
         grdtotal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         grdtotal.setForeground(new java.awt.Color(255, 153, 0));
         grdtotal.setText("Rs");
@@ -310,11 +298,6 @@ public class AdminWork extends javax.swing.JFrame {
                                 .addComponent(printbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(43, 43, 43))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(117, 117, 117)
-                    .addComponent(editbtn1)
-                    .addContainerGap(558, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,11 +344,6 @@ public class AdminWork extends javax.swing.JFrame {
                     .addComponent(addbtn)
                     .addComponent(clearbtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(270, Short.MAX_VALUE)
-                    .addComponent(editbtn1)
-                    .addGap(199, 199, 199)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -505,10 +483,6 @@ public class AdminWork extends javax.swing.JFrame {
         
     }//GEN-LAST:event_printbtnMouseClicked
 
-    private void editbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editbtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editbtn1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -551,7 +525,6 @@ public class AdminWork extends javax.swing.JFrame {
     private javax.swing.JTable billtable;
     private javax.swing.JTextArea billtext;
     private javax.swing.JButton clearbtn;
-    private javax.swing.JButton editbtn1;
     private javax.swing.JLabel grdtotal;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
