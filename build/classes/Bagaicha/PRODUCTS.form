@@ -371,7 +371,7 @@
                     <Column editable="true" title="ID" type="java.lang.Integer"/>
                     <Column editable="true" title="NAME" type="java.lang.Object"/>
                     <Column editable="true" title="QUANTITY" type="java.lang.Integer"/>
-                    <Column editable="true" title="PRICE" type="java.lang.String"/>
+                    <Column editable="true" title="PRICE PER 1" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -194,7 +194,7 @@ public class PRODUCTS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NAME", "QUANTITY", "PRICE"
+                "ID", "NAME", "QUANTITY", "PRICE PER 1"
             }
         ) {
             Class[] types = new Class [] {

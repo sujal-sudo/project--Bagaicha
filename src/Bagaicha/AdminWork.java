@@ -420,7 +420,7 @@ public class AdminWork extends javax.swing.JFrame {
             i++;
             if(i==1)
             {
-                billtext.setText(billtext.getText()+ "\t==========BAGAICHA=========\n"+ " Bill ID:" +"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+ "       "+nameField.getText()+"            "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
+                billtext.setText(billtext.getText()+ "\t==========BAGAICHA========= \t \n"+ " Bill ID:" +"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+ "       "+nameField.getText()+"             "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
      
             }else{
                 billtext.setText (billtext.getText()+i+"       "+nameField.getText()+"       "+price+"       "+quantityField.getText()+"       "+ ProdTot+"\n");
@@ -448,6 +448,9 @@ public class AdminWork extends javax.swing.JFrame {
 
     private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
         billtext.setText("");
+        billidField.setText("");
+        billtext.setText(billtext.getText()+ "\t==========BAGAICHA=========\n"+ " Bill ID:"+"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n");
+        
     }//GEN-LAST:event_refreshbtnActionPerformed
 
     private void billtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_billtableMouseClicked
