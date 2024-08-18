@@ -401,12 +401,14 @@ public class AdminWork extends javax.swing.JFrame {
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
                 String billid=billidField.getText();
         String name=nameField.getText();
-        String quantity=quantityField.getText();
-        int quant= Integer.parseInt(quantity);
-
+//        String quantity=quantityField.getText();
+//        int quant= Integer.parseInt(quantity);
+//
         if (name.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Empty record");
-            
+            JOptionPane.showMessageDialog(this,"Empty Record");
+//            
+//        }else if (quantity.isEmpty()){
+//            JOptionPane.showMessageDialog(this,"Please Enter Quantity");
         }
         else{
             i++;
@@ -414,7 +416,7 @@ public class AdminWork extends javax.swing.JFrame {
             grdTotal=grdTotal+ProdTot;
             if(i==1)
             {
-                billtext.setText(billtext.getText()+ "\t==========BAGAICHA========= \t \n"+ " Bill ID:" +"     "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n"+i+ "       "+nameField.getText()+"             "+price+"            "+quantityField.getText()+"            "+ ProdTot+"\n");
+                billtext.setText(billtext.getText()+ "\t==========BAGAICHA========= \t \n"+ " Bill ID:" +"     "+billidField.getText() +"\n"+ "S.N. PRODUCT       PRICE     QUANTITY   TOTAL \n"+i+ "       "+nameField.getText()+"     "+price+"     "+quantityField.getText()+"    "+ ProdTot+"\n");
      
             }else{
                 billtext.setText (billtext.getText()+i+"       "+nameField.getText()+"       "+price+"       "+quantityField.getText()+"       "+ ProdTot+"\n");
@@ -424,13 +426,16 @@ public class AdminWork extends javax.swing.JFrame {
     }//GEN-LAST:event_addbtnActionPerformed
    
     private void addbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addbtnMouseClicked
-// String billid=billidField.getText();
-//        String name=nameField.getText();
-//        String quantity=quantityField.getText();
-//
-//        if ( name.isEmpty()|| quantity.isEmpty()){
-//            JOptionPane.showMessageDialog(this,"Empty record");
-//        }
+         String name=nameField.getText();
+        String quantity=quantityField.getText();
+        int quant= Integer.parseInt(quantity);
+
+        if (name.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Empty Record");
+            
+        }else if (quantity.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please Enter Quantity");
+        }
     }//GEN-LAST:event_addbtnMouseClicked
 
     private void billidFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billidFieldActionPerformed
@@ -444,7 +449,7 @@ public class AdminWork extends javax.swing.JFrame {
     private void refreshbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshbtnActionPerformed
         billtext.setText("");
         billidField.setText("");
-        billtext.setText(billtext.getText()+ "\t==========BAGAICHA=========\n"+ " Bill ID:"+"       "+billidField.getText() +"\n"+ "S.N. PRODUCT PRICE QUANTITY TOTAL \n");
+        billtext.setText(billtext.getText()+ "\t==========BAGAICHA=========\n"+ " Bill ID:"+"       "+billidField.getText() +"\n"+ "S.N. PRODUCT       PRICE     QUANTITY   TOTAL \n");
         
     }//GEN-LAST:event_refreshbtnActionPerformed
 
