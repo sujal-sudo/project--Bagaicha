@@ -22,17 +22,9 @@ import javax.swing.SwingUtilities;
 
 
 public class Seller extends javax.swing.JFrame {
-        
-    
-    
-    
-    /**
-     * Creates new form Seller
-     */
+
     public Seller() {
-        initComponents();
-        
-       
+        initComponents(); 
       
 String sql = "select * from Employee";
 

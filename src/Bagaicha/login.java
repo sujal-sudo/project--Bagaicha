@@ -375,14 +375,9 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void clearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtnActionPerformed
-        // TODO add your handling code here:
-//        String name=nameField.getText();
-//        String pass =new String (passwordField.getPassword());
-//        if (name.getText()||pass.getPass)
+
         nameField.setText("");
         passwordField.setText("");
-
-
     }//GEN-LAST:event_clearbtnActionPerformed
 
     private void roleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roleMouseClicked
