@@ -266,107 +266,60 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_roleActionPerformed
 
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
-        // TODO add your handling code here:
-        try {
-            String rol = (String) role.getSelectedItem();
+//        // TODO add your handling code here:
+                                        
+    try {
+        String rol = (String) role.getSelectedItem();
+        String name = nameField.getText();
+        String pass = new String(passwordField.getPassword());
 
-            String name = nameField.getText();
-            String pass = new String(passwordField.getPassword());
+        if (name.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Invalid Credentials");
+        } else if (pass.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Password length must be at least 8 characters");
+        } else {
+            connectorBagaicha connect = new connectorBagaicha();
+            connect.openConnection();
 
-            if (name.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Invalid Credentials");
-
-            } else if (pass.length() < 8) {
-                JOptionPane.showMessageDialog(this, "Password length must be 8 characters");
-
-            } else {
-                connectorBagaicha connect = new connectorBagaicha();
-                connect.openConnection();
-                
-
-                if (rol.equals("EMPLOYEE")) {
-                    PRODUCTS dashboardView = new PRODUCTS();
-                    
-                 
-            String esql = "SELECT * FROM employee WHERE Employee_name=?";
-            String eusername = null;
-            String epassword = null;   
-                    
+            String sql = rol.equals("EMPLOYEE") 
+                ? "SELECT * FROM employee WHERE Employee_name=?" 
+                : "SELECT * FROM admin WHERE username=?";
+            
             try (Connection connection = new connectorBagaicha().openConnection(); 
-             PreparedStatement preparedStatement = connection.prepareStatement(esql)){
-                
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
                 preparedStatement.setString(1, name);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        String dbUsername = rol.equals("EMPLOYEE") 
+                            ? rs.getString("Employee_name") 
+                            : rs.getString("username");
+                        String dbPassword = rs.getString("password");
 
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-            if (rs.next()) {
-                eusername = rs.getString("Employee_name");
-                epassword = rs.getString("password");
-            
-            }
-            if (name.equals(eusername) && pass.equals(epassword)) {
-            // No need for executeUpdate here
-            JOptionPane.showMessageDialog(this, "Login Successful");
-            
-             this.dispose();
-              
-                    dashboardView.setVisible(true);
-                     
-            }
-            else{
-            JOptionPane.showMessageDialog(this, "Login unsuccessful");
-        }
-            }
-            catch (Exception ex){
-                System.out.println(ex.getMessage());
+                        if (name.equals(dbUsername) && pass.equals(dbPassword)) {
+                            JOptionPane.showMessageDialog(this, "Login Successful");
+                            this.dispose();
+                            if (rol.equals("EMPLOYEE")) {
+                                new PRODUCTS().setVisible(true);
+                            } else {
+                                new Seller().setVisible(true);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Login Unsuccessful");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "User not found");
+                    }
                 }
-                
-            }catch (Exception e){
-                System.out.println(e.getMessage());
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
             }
-                    
-                    
-                  
-                }
-       if (rol.equals("ADMIN")) {
-    Seller dashboardseller = new Seller();
-
-    String sql = "SELECT * FROM admin WHERE username=?";
-    String username = null;
-    String password = null;
-
-    try (Connection connection = new connectorBagaicha().openConnection(); 
-         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-        preparedStatement.setString(1, name);
-
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-            if (rs.next()) {
-                username = rs.getString("username");
-                password = rs.getString("password");
-            
         }
-
-        if (name.equals(username) && password.equals(password)) {
-            // No need for executeUpdate here
-            JOptionPane.showMessageDialog(this, "Login Successful");
-            this.dispose();
-    dashboardseller.setVisible(true);
-    
-        }else{
-            JOptionPane.showMessageDialog(this, "Login Unsuccessful");
-        }
-            }
-
-    } catch (SQLException ex) {
-        System.out.println("Error: " + ex.getMessage());
+    } catch (Exception e) {
+        System.out.println("Error during login: " + e.getMessage());
     }
 
-    
-}
-            }
-        } catch (Exception e) {
-            System.out.println("Error adding user: " + e.getMessage());
-        }
+
     }//GEN-LAST:event_loginbtnActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
